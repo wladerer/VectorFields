@@ -4,7 +4,7 @@ import pstats
 import io
 
 def main():
-    vf = VectorField(None)
+    vf = VectorField('example_data.dat')
     vf.plot3dfield()
 
 if __name__ == '__main__':
