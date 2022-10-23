@@ -29,9 +29,17 @@ class VectorField:
         #if data is None, create a random vector field
         elif self.data is None:
             x, y, z = np.meshgrid(np.arange(-10, 10, 1), np.arange(-10, 10, 1), np.arange(-10, 10, 1))
-            u = np.sin(x*y*z) / (x*y*z)
-            v = np.cos(x*y*z) / (x*y*z)
-            w = np.tan(x*y*z) / (x*y*z)
+            #replace any x,y,z zero value with a small value to avoid division by zero
+            x[x==0] = 0.01
+            y[y==0] = 0.01
+            z[z==0] = 0.01
+
+            #only do the multiplication once
+            xyz = x*y*z
+
+            u = np.sin(xyz) 
+            v = np.cos(xyz) 
+            w = np.tan(xyz) 
             return x,y,z,u,v,w
 
         else:
@@ -79,6 +87,3 @@ class VectorField:
                                      u=U.flatten(), v=V.flatten(), w=W.flatten()))
         fig.show()
 
-
-
-electric_field = VectorField(None).plot3dfield()
