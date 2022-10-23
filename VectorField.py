@@ -11,6 +11,7 @@ class VectorField:
 
     def get_vfield(self):
 
+
         #if data is a numpy array, return the numpy array into x,y,z,u,v,w components
         if isinstance(self.data, np.ndarray):
             x = self.data[:,0]
@@ -26,12 +27,15 @@ class VectorField:
             return self.field_from_file()
         
         #if data is None, create a random vector field
-        else:
+        elif self.data is None:
             x, y, z = np.meshgrid(np.arange(-10, 10, 1), np.arange(-10, 10, 1), np.arange(-10, 10, 1))
             u = np.sin(x*y*z) / (x*y*z)
             v = np.cos(x*y*z) / (x*y*z)
             w = np.tan(x*y*z) / (x*y*z)
             return x,y,z,u,v,w
+
+        else:
+            raise TypeError("data must be a numpy array or a string")
         
 
     def field_from_file(self):
@@ -76,3 +80,5 @@ class VectorField:
         fig.show()
 
 
+
+electric_field = VectorField(None).plot3dfield()
